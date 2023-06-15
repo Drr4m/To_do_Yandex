@@ -21,6 +21,7 @@ Todo App on Flutter for Yandex mobile school
 ## Screens
 ![image](https://github.com/Drr4m/To_do_Yandex/assets/52881672/de37b73a-6af6-4ed1-b4f8-c5dc0c50dcd3)
 ![image](https://github.com/Drr4m/To_do_Yandex/assets/52881672/af0ee71e-ef11-41db-be4f-7106f41b037b)
+![image](https://github.com/Drr4m/To_do_Yandex/assets/52881672/f9c04391-f758-4c10-8a41-3cc90b9a1e1c)
 ![image](https://github.com/Drr4m/To_do_Yandex/assets/52881672/1751bbc1-82a2-4f8f-a760-a977b334ed95)
 ![image](https://github.com/Drr4m/To_do_Yandex/assets/52881672/df7b5e1b-cfc3-4d90-abca-57a5423a1936)
 ![image](https://github.com/Drr4m/To_do_Yandex/assets/52881672/a3a34b5e-95e0-41e3-85ae-6e00c881ad35)
