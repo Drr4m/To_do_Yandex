@@ -7,6 +7,11 @@ import 'add_to_do_screen.dart';
 final StateProvider hide = StateProvider<bool>((ref) {
   return false;
 });
+
+final StateProvider importance = StateProvider<String>((ref) {
+  return "Нет";
+});
+
 int count = 0;
 
 class MyTasks extends ConsumerStatefulWidget {
@@ -22,7 +27,7 @@ class _MyTasksState extends ConsumerState<MyTasks> {
   bool checked = false;
   void addTodoItem(String task) {
     setState(() {
-      tasks.add(Task(task, taskIndex, false));
+      tasks.add(Task(ref.read(importance) + task, taskIndex, false));
       taskIndex++;
     });
   }
