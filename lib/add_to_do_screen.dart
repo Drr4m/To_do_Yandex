@@ -26,7 +26,7 @@ class _AddTodoScreenState extends ConsumerState<AddTodoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var dropdownValue;
+    var dropdownValue = 'Нет';
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(247, 246, 242, 1),
@@ -48,11 +48,20 @@ class _AddTodoScreenState extends ConsumerState<AddTodoScreen> {
             padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
             child: TextButton(
                 onPressed: () {
-                  ref
-                      .read(importance.notifier)
-                      .update((state) => dropdownValue)
-                      .Navigator
-                      .pop(context, _textEditingController.text);
+                  ref.read(importance.notifier).update((state) {
+                    switch (dropdownValue) {
+                      case "Нет":
+                        return "Нет";
+                      case "Низкая":
+                        return "Низкая";
+                      case "Высокая":
+                        return "Высокая";
+                      default:
+                        return 'asasa';
+                    }
+                  });
+
+                  Navigator.pop(context, _textEditingController.text);
                 },
                 child: const Text('СОХРАНИТЬ',
                     style: TextStyle(
@@ -120,9 +129,7 @@ class _AddTodoScreenState extends ConsumerState<AddTodoScreen> {
                           value: dropdownValue,
                           items: dropdownItems,
                           onChanged: (value) {
-                            setState(() {
-                              dropdownValue = value;
-                            });
+                            dropdownValue = value ?? '';
                           },
                         ),
                       ),

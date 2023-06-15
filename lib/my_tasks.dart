@@ -8,8 +8,8 @@ final StateProvider hide = StateProvider<bool>((ref) {
   return false;
 });
 
-final StateProvider importance = StateProvider<String>((ref) {
-  return "Нет";
+final StateProvider<String> importance = StateProvider<String>((ref) {
+  return 'SDfs';
 });
 
 int count = 0;
@@ -25,9 +25,9 @@ class _MyTasksState extends ConsumerState<MyTasks> {
   List<Task> tasks = [];
   int taskIndex = 0;
   bool checked = false;
-  void addTodoItem(String task) {
+  void addTodoItem(String task, WidgetRef ref) {
     setState(() {
-      tasks.add(Task(ref.read(importance) + task, taskIndex, false));
+      tasks.add(Task(ref.read(importance), task, taskIndex, false));
       taskIndex++;
     });
   }
@@ -109,18 +109,37 @@ class _MyTasksState extends ConsumerState<MyTasks> {
               value: tasks[index].checked,
               secondary: const Icon(Icons.info_outline),
               controlAffinity: ListTileControlAffinity.leading,
-              title: Text(
-                tasks[index].title,
-                style: tasks[index].checked == true
-                    ? const TextStyle(
-                        decoration: TextDecoration.lineThrough,
-                        color: Color.fromRGBO(0, 0, 0, 0.3),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400)
-                    : const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
+              title: Row(
+                children: [
+                  tasks[index].importance == "Нет"
+                      ? SizedBox()
+                      : tasks[index].importance == "Высокая"
+                          ? const Stack(children: [
+                              Icon(Icons.priority_high_rounded,
+                                  color: Colors.red),
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
+                                child: Icon(Icons.priority_high_rounded,
+                                    color: Colors.red),
+                              ),
+                            ])
+                          : Icon(
+                              Icons.arrow_downward_rounded,
+                            ),
+                  Text(
+                    tasks[index].title,
+                    style: tasks[index].checked == true
+                        ? const TextStyle(
+                            decoration: TextDecoration.lineThrough,
+                            color: Color.fromRGBO(0, 0, 0, 0.3),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400)
+                        : const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                  ),
+                ],
               ),
               onChanged: (value) {
                 setState(
@@ -157,7 +176,7 @@ class _MyTasksState extends ConsumerState<MyTasks> {
                       return click == true
                           ? checkHide(index) == false
                               ? Dismissibleitem(index)
-                              : SizedBox()
+                              : const SizedBox()
                           : Dismissibleitem(index);
                     },
                   ),
@@ -193,7 +212,7 @@ class _MyTasksState extends ConsumerState<MyTasks> {
             MaterialPageRoute(builder: (context) => AddTodoScreen()),
           );
           if (task != null) {
-            addTodoItem(task);
+            addTodoItem(task, ref);
           }
         },
         child: const Icon(Icons.add),
