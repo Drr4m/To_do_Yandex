@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todoyandex/my_tasks.dart';
 
-class MySliverBar extends StatefulWidget {
+class MySliverBar extends ConsumerStatefulWidget {
   const MySliverBar({super.key});
 
   @override
-  State<MySliverBar> createState() => _MySliverBarState();
+  ConsumerState<MySliverBar> createState() => _MySliverBarState();
 }
 
-class _MySliverBarState extends State<MySliverBar> {
-  bool click = false;
+class _MySliverBarState extends ConsumerState<MySliverBar> {
   double top = 0;
 
   @override
   Widget build(BuildContext context) {
+    final click = ref.watch(hide);
     return SliverAppBar(
       pinned: true,
       snap: false,
       floating: false,
-      backgroundColor: const Color.fromRGBO(247, 246, 242, 1),
-      foregroundColor: const Color.fromRGBO(247, 246, 242, 1),
       expandedHeight: 160,
       flexibleSpace: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -31,7 +31,7 @@ class _MySliverBarState extends State<MySliverBar> {
                       : 60,
                   0,
                   0,
-                  16),
+                  0),
               title: Container(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -66,11 +66,9 @@ class _MySliverBarState extends State<MySliverBar> {
                                     constraints: const BoxConstraints(),
                                     color: const Color.fromRGBO(0, 122, 255, 1),
                                     onPressed: () {
-                                      setState(
-                                        () {
-                                          click = !click;
-                                        },
-                                      );
+                                      ref
+                                          .read(hide.notifier)
+                                          .update((state) => !click);
                                     },
                                     icon: Icon(
                                       (click == true)
@@ -91,41 +89,38 @@ class _MySliverBarState extends State<MySliverBar> {
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black),
                               ),
-                              const SizedBox(
-                                height: 6,
-                              ),
                               Row(
                                 children: [
-                                  const Expanded(
-                                    child: Text(
-                                      'Выполнено - 5',
-                                      style: TextStyle(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w400,
-                                          color: Color.fromRGBO(0, 0, 0, 0.3)),
-                                    ),
+                                  Text(
+                                    'Выполнено - $count',
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color.fromRGBO(0, 0, 0, 0.3)),
                                   ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 0, 25, 0),
+                                  SizedBox(
+                                    width: 100,
+                                  ),
+                                  SizedBox(
+                                    height: 23,
+                                    width: 23,
                                     child: IconButton(
                                         padding: EdgeInsets.zero,
                                         visualDensity: const VisualDensity(
                                           horizontal: 0,
                                           vertical: 0,
                                         ),
-                                        splashRadius: 15,
-                                        alignment: Alignment.center,
+                                        splashRadius: 25,
                                         iconSize: 15,
-                                        constraints: const BoxConstraints(),
+                                        constraints: const BoxConstraints(
+                                          maxHeight: 20,
+                                        ),
                                         color: const Color.fromRGBO(
                                             0, 122, 255, 1),
                                         onPressed: () {
-                                          setState(
-                                            () {
-                                              click = !click;
-                                            },
-                                          );
+                                          ref
+                                              .read(hide.notifier)
+                                              .update((state) => !click);
                                         },
                                         icon: Icon(
                                           (click == true)

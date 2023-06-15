@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:todoyandex/example.dart';
 import 'package:todoyandex/my_tasks.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(
+      const ProviderScope(
+        child: MyApp(),
+      ),
+    );
 
-class MyApp extends StatefulWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       theme: ThemeData(
+        useMaterial3: true,
         fontFamily: 'Roboto',
       ),
       debugShowCheckedModeBanner: false,
-      home: MyTasks(),
+      home: const MyTasks(),
     );
   }
 }
